@@ -1,17 +1,16 @@
 @import '../../_setting.scss';
 
-$colums-header-height: 46px;
-$colums-footer-height: 46px;
-$colums-border-height: 5px;
+$column-header-height: 46px;
+$column-footer-height: 46px;
+$column-border-radius: 5px;
+
+$column-height: calc(#{board-content-height} - #{$gap * 2});
 
 .column {
   flex: 0 0 auto;
   width: 300px;
-  height: calc(100% - #{$gap});
-
-  &:not(:first-child) {
-    margin-left: $gap;
-  }
+  height: $column-height;
+  margin-left: $gap;
 
   > * {
     background-color: $list-bg-color;
@@ -19,31 +18,32 @@ $colums-border-height: 5px;
     padding: 0 8px;
   }
 
-  header {
+  header.column-drag-handle {
     color: $board-color;
     padding-left: 15px;
-    height: $colums-header-height;
-    line-height: $colums-header-height;
+    height: $column-header-height;
+    line-height: $column-header-height;
     font-size: $font-size;
     font-weight: bold;
-    border-top-left-radius: $colums-border-height;
-    border-top-right-radius: $colums-border-height;
+    border-top-left-radius: $column-border-radius;
+    border-top-right-radius: $column-border-radius;
+    cursor: pointer;
   }
 
   footer {
     color: $board-color;
     font-size: $font-size;
     padding-left: $gap;
-    height: $colums-footer-height;
-    line-height: $colums-footer-height;
-    border-bottom-left-radius: $colums-border-height;
-    border-bottom-right-radius: $colums-border-height;
+    height: $column-footer-height;
+    line-height: $column-footer-height;
+    border-bottom-left-radius: $column-border-radius;
+    border-bottom-right-radius: $column-border-radius;
   }
 
-  ul.card-list {
+  .card-list {
     list-style-type: none;
     margin: 0;
-    max-height: calc(100% - #{$colums-header-height} - #{$colums-footer-height});
+    max-height: calc(#{$column-height} - #{$column-header-height} - #{$column-footer-height});
     overflow-y: auto;
 
     &::-webkit-scrollbar {
@@ -57,6 +57,22 @@ $colums-border-height: 5px;
     &::-webkit-scrollbar-thumb {
       background-color: darken($list-bg-color, 15);
       border-right: 5px solid $list-bg-color;
+    }
+
+    .card-ghost {
+      transition: transform 0.18s ease;
+      transform: rotateZ(5deg);
+    }
+
+    .card-ghost-drop {
+      transition: transform 0.18s ease-in-out;
+      transform: rotateZ(0deg);
+    }
+
+    .card-drop-preview {
+      background-color: rgba(244, 244, 247, 0.1);
+      border: 1px dashed #f2f3f5;
+      margin: 5px;
     }
   }
 }
