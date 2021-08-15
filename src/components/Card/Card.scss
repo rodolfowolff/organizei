@@ -1,20 +1,20 @@
 @import '../../_setting.scss';
 
-$card-border-height: 4px;
+$card-border-radius: 4px;
 
-li.card-item {
+.card-item {
   background-color: white;
   padding: $gap;
-  border-radius: $card-border-height;
+  border-radius: $card-border-radius;
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.596);
+  cursor: pointer;
+  margin-bottom: $gap;
 
-  &:not(:last-child) {
-    margin-bottom: $gap;
-  }
-
-  img {
+  img.card-cover {
     display: block;
-    width: calc(100% +2 * #{$gap});
+    width: calc(100% + 2 * #{$gap});
     margin: -$gap 0 $gap (-$gap);
+    border-top-left-radius: $card-border-radius;
+    border-top-right-radius: $card-border-radius;
   }
 }
