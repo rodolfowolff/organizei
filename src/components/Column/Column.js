@@ -3,35 +3,23 @@ import { Container, Draggable } from 'react-smooth-dnd';
 
 import Card from '../Card/Card';
 
+import PlusIcon from '../../images/plus-icon.svg';
 import './Column.scss';
 
 import { mapOrder } from '../../utilities/sorts';
 
 function Column(props) {
-  const { column } = props;
+  const { column, onCardDrop } = props;
   const cards = mapOrder(column.cards, column.cardOrder, 'id');
-
-  const onCardDrop = (dropResult) => {
-    console.log(dropResult);
-  };
 
   return (
     <div className='column'>
       <header className="column-drag-handle">{ column.title }</header>
       <div className="card-list">
         <Container
-          // onDragStart={ (e) => console.log('drag start', e) }
-          // onDragEnd={ (e) => console.log('dra end', e) }
-          // onDragEnter={ () => {
-          //   console.log('drag enter:', column.id);
-          // } }
-          // onDragLeave={ () => {
-          //   console.log('drag leave:', column.id);
-          // } }
-          // onDropReady={ (p) => console.log('Drop ready', p) }
           orientation="vertical"
           groupName="app-columns"
-          onDrop={ onCardDrop }
+          onDrop={ (dropResult) => onCardDrop(column.id, dropResult) }
           getChildPayload={ (index) => cards[index] }
           dragClass="card-ghost"
           dropClass="card-ghost-drop"
@@ -50,7 +38,12 @@ function Column(props) {
           ) }
         </Container>
       </div>
-      <footer>Add another card</footer>
+      <footer>
+        <div className='footer-actions'>
+          <img src={ PlusIcon } alt="plus icon" className='plus-icon' />
+          Add another card
+        </div>
+      </footer>
     </div>
   );
 }
